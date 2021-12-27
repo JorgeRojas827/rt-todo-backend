@@ -1,0 +1,41 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model enviroment {
+  id_enviro   Int     @id(map: "Enviroment_pkey") @default(autoincrement())
+  enviro_name String?
+  fk_member   Int?
+  member      member? @relation(fields: [fk_member], references: [id_user], onDelete: NoAction, onUpdate: NoAction, map: "fk_enviro")
+  task        task[]
+}
+
+model member {
+  id_user    Int          @id(map: "Member_pkey") @default(autoincrement())
+  username   String?
+  picture    String?
+  email      String?
+  enviroment enviroment[]
+}
+
+model state {
+  id_state Int     @id(map: "Estado_pkey") @default(autoincrement())
+  name     String?
+  cantity  Int?
+  bkgColor String?
+  task     task[]
+}
+
+model task {
+  id_task       Int         @id(map: "Task_pkey") @default(autoincrement())
+  description   String?
+  fk_state      Int?        @default(1)
+  fk_enviroment Int?
+  enviroment    enviroment? @relation(fields: [fk_enviroment], references: [id_enviro], onDelete: NoAction, onUpdate: NoAction, map: "fk_enviroment")
+  state         state?      @relation(fields: [fk_state], references: [id_state], onDelete: NoAction, onUpdate: NoAction, map: "fk_state")
+}
