@@ -76,6 +76,24 @@ export const createTask = async (req: Request, res: Response) => {
     }
 }
 
+export const deleteTask = async (req: Request, res: Response) => {
+    try {
+        const id_task = Number(req.params.id_task);
+        
+        await prisma.task.delete({
+            where: {
+                id_task
+            }
+        })
+
+        res.send({
+            completed: true
+        })
+    } catch (err) {
+        res.status(400).send(err)
+    }
+}
+
 export const exchangeIds = async (req: Request, res: Response) => {
     try {
         const pool = new Pool({
