@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import { createTask, getTasksByEnviromentAndState, getTasksByEnviroment, exchangeIds, deleteTask } from './Task/taskController';
-import { createEnviroment, getEnviromentByUser } from './Enviroment/enviromentController';
+import { createEnviroment, getEnviromentByUser, updateEnviroment } from './Enviroment/enviromentController';
 import { createMember, loginMember } from './Member/memberController';
 import { getStates, updateState } from './State/stateController';
 
@@ -16,6 +16,7 @@ router.post('/tasks/create', createTask);
 // Enviroments
 router.post('/enviroments/create', createEnviroment);
 router.get('/enviroments/:username', getEnviromentByUser);
+router.patch('/enviroments/update/:id_enviro/:enviro_name', updateEnviroment);
 
 // Member
 router.post('/member/create', createMember);
