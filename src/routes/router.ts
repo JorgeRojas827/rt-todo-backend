@@ -2,7 +2,7 @@ import { Router } from 'express';
 import { createTask, getTasksByEnviromentAndState, getTasksByEnviroment, exchangeIds, deleteTask } from './Task/taskController';
 import { createEnviroment, getEnviromentByUser, updateEnviroment } from './Enviroment/enviromentController';
 import { createMember, loginMember } from './Member/memberController';
-import { getStates, updateState } from './State/stateController';
+import { getStatesByEnviroment, updateState } from './State/stateController';
 
 const router = Router();
 // Tasks
@@ -23,7 +23,7 @@ router.post('/member/create', createMember);
 router.get('/login/:email', loginMember);
 
 // State
-router.get('/state', getStates);
+router.get('/state/:fk_enviro', getStatesByEnviroment);
 router.patch('/state/update/:id_state', updateState);
 
 export default router;

@@ -13,6 +13,15 @@ export const createEnviroment = async (req: Request, res: Response) => {
             }
         })
 
+        await prisma.state.createMany({
+            data: [
+                { name: 'Sin estado', bkgColor: 'rgba(217, 217, 217, 0.43', fk_enviroment:rows.id_enviro },
+                { name: 'Por hacer', bkgColor: 'rgba(255, 128, 128, 0.43', fk_enviroment:rows.id_enviro },
+                { name: 'En progreso', bkgColor: 'rgba(255, 235, 128, 0.43', fk_enviroment:rows.id_enviro },
+                { name: 'Completado', bkgColor: 'rgba(162, 255, 177, 0.39', fk_enviroment:rows.id_enviro },
+            ]
+        })
+
         res.json(rows);
     } catch (err) {
         res.status(400).send(err)

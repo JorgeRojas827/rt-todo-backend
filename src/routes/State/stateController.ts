@@ -26,9 +26,15 @@ export const updateState = async (req: Request, res: Response) => {
     }
 }
 
-export const getStates = async (_: Request, res: Response) => {
+export const getStatesByEnviroment = async (req: Request, res: Response) => {
     try {
-        const rows: state[] = await prisma.state.findMany();
+        const fk_enviro = Number(req.params.fk_enviro);
+
+        const rows: state[] = await prisma.state.findMany({
+            where: {
+                fk_enviroment: fk_enviro
+            }
+        });
         res.json(rows);
     } catch (err) {
         res.status(400).send(err);

@@ -13,6 +13,7 @@ model enviroment {
   fk_member   Int?
   member      member? @relation(fields: [fk_member], references: [id_user], onDelete: NoAction, onUpdate: NoAction, map: "fk_enviro")
   task        task[]
+  state       state[]
 }
 
 model member {
@@ -24,17 +25,19 @@ model member {
 }
 
 model state {
-  id_state Int     @id(map: "Estado_pkey") @default(autoincrement())
-  name     String?
-  cantity  Int?
-  bkgColor String?
-  task     task[]
+  id_state      Int         @id(map: "Estado_pkey") @default(autoincrement())
+  name          String?
+  cantity       Int?        @default(0)
+  bkgColor      String?
+  fk_enviroment Int?
+  enviroment    enviroment? @relation(fields: [fk_enviroment], references: [id_enviro], onDelete: NoAction, onUpdate: NoAction, map: "fk_enviroment")
+  task          task[]
 }
 
 model task {
   id_task       Int         @id(map: "Task_pkey") @default(autoincrement())
   description   String?
-  fk_state      Int?        @default(1)
+  fk_state      Int?
   fk_enviroment Int?
   enviroment    enviroment? @relation(fields: [fk_enviroment], references: [id_enviro], onDelete: NoAction, onUpdate: NoAction, map: "fk_enviroment")
   state         state?      @relation(fields: [fk_state], references: [id_state], onDelete: NoAction, onUpdate: NoAction, map: "fk_state")
