@@ -114,6 +114,26 @@ export const updateTask = async (req: Request, res: Response) => {
     }
 }
 
+export const updateStateFkTask = async (req: Request, res: Response) => {
+    try {
+        const id_task = Number(req.params.id_task);
+        const fk_state = Number(req.params.fk_state);
+
+        const rows: task = await prisma.task.update({
+            where: {
+                id_task
+            },
+            data: {
+                fk_state
+            }
+        })
+
+        res.json(rows)
+    } catch (err) {
+        res.status(400).send(err);
+    }
+}
+
 export const exchangeIds = async (req: Request, res: Response) => {
     try {
         const pool = new Pool({
