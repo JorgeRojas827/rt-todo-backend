@@ -5,12 +5,12 @@ import { Pool } from 'pg';
 
 export const getTasksByEnviroment = async (req: Request, res: Response) => {
     try {
-        const enviro_name = req.params.enviro_name;
+        const id_enviro = Number(req.params.id_enviro);
 
         const rows: task[] = await prisma.task.findMany({
             where: {
                 enviroment: {
-                    enviro_name
+                    id_enviro
                 }
             }
         })

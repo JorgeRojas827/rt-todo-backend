@@ -48,13 +48,13 @@ export const updateEnviroment = async (req: Request, res: Response) => {
     }
 }
 
-export const getEnviromentByUser = async (req: Request, res: Response) => {
+export const getEnviromentByEmail = async (req: Request, res: Response) => {
     try {
-        const username = req.params.username;
+        const email = req.params.email;
 
         const rows: enviroment[] = await prisma.enviroment.findMany({
             where: {member: {
-                username
+                email
             }}
         })
 
