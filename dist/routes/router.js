@@ -1,0 +1,24 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const taskController_1 = require("./Task/taskController");
+const enviromentController_1 = require("./Enviroment/enviromentController");
+const memberController_1 = require("./Member/memberController");
+const stateController_1 = require("./State/stateController");
+const router = (0, express_1.Router)();
+router.get('/tasks/:id_enviro', taskController_1.getTasksByEnviroment);
+router.get('/tasks/:enviro_name/:id_state', taskController_1.getTasksByEnviromentAndState);
+router.patch('/tasks/update/:id_task/:description', taskController_1.updateTask);
+router.patch('/tasks/updateIds/:originTask/:destinationTask', taskController_1.exchangeIds);
+router.patch('/tasks/updateStateFk/:id_task/:fk_state', taskController_1.updateStateFkTask);
+router.delete('/tasks/delete/:id_task', taskController_1.deleteTask);
+router.post('/tasks/create', taskController_1.createTask);
+router.post('/enviroments/create', enviromentController_1.createEnviroment);
+router.get('/enviroments/:email', enviromentController_1.getEnviromentByEmail);
+router.patch('/enviroments/update/:id_enviro/:enviro_name', enviromentController_1.updateEnviroment);
+router.post('/member/create', memberController_1.createMember);
+router.get('/login/:email', memberController_1.loginMember);
+router.get('/state/:fk_enviro', stateController_1.getStatesByEnviroment);
+router.patch('/state/update/:id_state', stateController_1.updateState);
+exports.default = router;
+//# sourceMappingURL=router.js.map
