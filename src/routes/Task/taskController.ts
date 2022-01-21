@@ -137,7 +137,7 @@ export const updateStateFkTask = async (req: Request, res: Response) => {
 export const exchangeIds = async (req: Request, res: Response) => {
     try {
         const pool = new Pool({
-            connectionString: process.env.DB_CONNECTION
+            connectionString: process.env.DATABASE_URL
         });
         pool.connect();
 
