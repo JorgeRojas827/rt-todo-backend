@@ -1,3 +1,4 @@
+import { createBucket, uploadObject } from "../../aws/aws-s3";
 import { Request, Response } from "express";
 import { prisma } from '../../db';
 import { task } from '@prisma/client';
@@ -15,6 +16,30 @@ export const getTasksByEnviroment = async (req: Request, res: Response) => {
             }
         })
         res.json(rows);
+    } catch (err) {
+        res.status(400).send(err)
+    }
+}
+
+
+export const generateTaskBucket = async (req: Request, res: Response) => {
+    try {
+        const { fecha, fk_enviro } = req.body;
+
+        const datos: task[] = await prisma.task.findMany({
+            where: {
+                state: {
+                    name: 'Por hacer',
+                    AND: {
+                        fk_enviroment: fk_enviro
+                    }
+                }, 
+            }
+        })
+        await createBucket();
+        setTimeout(async () => {
+            await uploadObject(fecha, datos);
+        }, 3000)
     } catch (err) {
         res.status(400).send(err)
     }
